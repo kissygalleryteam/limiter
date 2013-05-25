@@ -1,0 +1,13 @@
+{
+    "name": "limiter",
+    "version": "1.4",
+    "desc": "文本框字数限制和统计器",
+    "cover": "http://www.36ria.com/wp-content/uploads/2012/05/limiter.png",
+    "author": {
+        "name": "明河",
+        "email": "minghe36@126.com",
+        "page": "https://github.com/minghe"
+    },
+    "type": "kissy-pie",
+    "type-url": "http://abc.alibaba-inc.com/r/kissy-pie"
+}
