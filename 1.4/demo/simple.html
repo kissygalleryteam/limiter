@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Limiter的简单demo</title>
+    <meta charset="utf-8"/>
+    <script src="http://a.tbcdn.cn/s/kissy/1.3.0/kissy-min.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="http://a.tbcdn.cn/s/kissy/1.3.0/css/dpl/base-min.css"/>
+</head>
+<body>
+    <div class="controls">
+        <input type="text" id="J_AucTitle" name="item-title" value="明河">
+        <div id="J_LimiterWrapper" style="margin-top:10px;"></div>
+    </div>
+
+    <script>
+        var S = KISSY;
+        if (S.Config.debug) {
+            var srcPath = "../../../";
+            S.config({
+                packages:[
+                    {
+                        name:"gallery",
+                        path:srcPath,
+                        charset:"utf-8",
+                        ignorePackageNameInUri:true
+                    }
+                ]
+            });
+        }
+
+        S.use('gallery/limiter/1.4/index', function (S, Limiter) {
+            var textLimiter = new Limiter('#J_AucTitle',{wrapper:'#J_LimiterWrapper'});
+            textLimiter.render();
+        })
+    </script>
+</body>
+</html>

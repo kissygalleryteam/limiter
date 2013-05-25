@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>结合editor使用</title>
+    <meta charset="utf-8"/>
+    <script src="http://a.tbcdn.cn/s/kissy/1.3.0/kissy-min.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="http://a.tbcdn.cn/s/kissy/1.3.0/css/dpl/base-min.css"/>
+    <link href="http://a.tbcdn.cn/s/kissy/1.3.0/editor/theme/cool/editor-min.css" rel="stylesheet"/>
+</head>
+<body>
+<h2>结合editor使用</h2>
+<div class="ks-editor" id="editorEl">
+    <textarea class="ks-editor-textarea" id="J_Dec" style="width:600px;height: 400px;">
+        明河是一个屌丝
+    </textarea>
+</div>
+<div id="J_DecCount"></div>
+
+    <script>
+        var S = KISSY;
+        if (S.Config.debug) {
+            var srcPath = "../../../";
+            S.config({
+                packages:[
+                    {
+                        name:"gallery",
+                        path:srcPath,
+                        charset:"utf-8",
+                        ignorePackageNameInUri:true
+                    }
+                ]
+            });
+        }
+
+        S.use('gallery/limiter/1.4/index', function (S, Limiter) {
+            KISSY.use("editor", function (S, Editor) {
+                var cfg = {
+                    // 是否初始聚焦
+                    focused:true,
+                    attachForm:true,
+                    srcNode: '#editorEl',
+                    width:'80%',
+                    height:"200px"
+                };
+                KISSY.use("editor/plugin/source-area/," +
+                        "editor/plugin/font-size/," +
+                        "editor/plugin/code/", function (S, SourceArea, FontSize,Code) {
+                    cfg.plugins = [SourceArea, FontSize,Code];
+
+                    var editor = new Editor(cfg).render();
+                    editor.docReady(function(){
+                        var decLimiter = new Limiter('#J_Dec',{wrapper:'#J_DecCount',max:10,isRejectTag:true,isCut:true});
+                        decLimiter.render();
+
+                        editor.get('document').on('keyup',function(){
+                            console.log(editor.get('data').length);
+                            editor.sync();
+                            decLimiter.count();
+                        })
+                    })
+
+                });
+
+            });
+        })
+    </script>
+</body>
+</html>
