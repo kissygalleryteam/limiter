@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>文字超出予以截断</title>
+    <meta charset="utf-8"/>
+    <script src="http://a.tbcdn.cn/s/kissy/1.3.0/kissy-min.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="http://a.tbcdn.cn/s/kissy/1.3.0/css/dpl/base-min.css"/>
+</head>
+<body>
+<h2>可以配置isCut:true，文字超出予以截断</h2>
+<input type="text" id="J_CutText" name="item-title" value="明河">
+<div id="J_CutLimiter"></div>
+
+    <script>
+        var S = KISSY;
+        S.config({
+            packages:[
+                {
+                    name:"kg",
+                    path:"http://g.tbcdn.cn/kg/",
+                    charset:"utf-8",
+                    ignorePackageNameInUri:true
+                }
+            ]
+        });
+
+        if (S.Config.debug) {
+            var srcPath = "../";
+            S.config({
+                packages:[
+                    {
+                        name:"kg/limiter/2.0.0",
+                        path:srcPath,
+                        charset:"utf-8",
+                        ignorePackageNameInUri:true
+                    }
+                ]
+            });
+        }
+
+
+        S.use('kg/limiter/2.0.0/index', function (S, Limiter) {
+            var cutLimiter = new Limiter('#J_CutText',{wrapper:'#J_CutLimiter',isCut:true,max:8});
+            cutLimiter.render();
+        })
+    </script>
+</body>
+</html>
